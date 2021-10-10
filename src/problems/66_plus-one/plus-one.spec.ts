@@ -1,4 +1,4 @@
-const { plusOne } = require("./66_plus_one");
+const { plusOne } = require("./plus-one");
 
 describe("plusOne", () => {
     it.each([

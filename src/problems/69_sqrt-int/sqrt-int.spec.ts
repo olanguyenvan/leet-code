@@ -1,4 +1,4 @@
-const { sqrt_int } = require("./sqrt_int");
+const { sqrt_int } = require("./sqrt-int");
 
 describe("sqrt_int", () => {
     it.each([
