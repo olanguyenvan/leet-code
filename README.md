@@ -1,3 +1,4 @@
-### October 2021 Challenge Leet Code
+### Leet Code
 
-October 2021 challenge will be implemented in TypeScript for my learning purposes.
+Repository containing my own solutions to leet code problems.
+You can find all problems' statements at leetcode.com.
