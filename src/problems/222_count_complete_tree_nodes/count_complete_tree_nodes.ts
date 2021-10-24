@@ -31,6 +31,7 @@ export function checkIfExists(root: TreeNode | null, index: number) {
     let indexOfString = 1;
     let tmp = root;
 
+    // console.log()
     while (indexOfString < indexToFindBin.length) {
         if (!tmp) {
             return false;
@@ -61,25 +62,24 @@ export function countNodes(root: TreeNode | null): number {
     let count = 0;
     let middleIndex: number = leftIndex;
 
-    while (leftIndex !== rightIndex && count != 10) {
+    while (leftIndex !== rightIndex) {
+        if (rightIndex - leftIndex === 1) {
+            if (checkIfExists(root, rightIndex)) {
+                return rightIndex;
+            } else if (checkIfExists(root, leftIndex)) {
+                return leftIndex;
+            }
+        }
+
         middleIndex = Math.floor((leftIndex + rightIndex) / 2);
 
         const exists = checkIfExists(root, middleIndex);
-
-        if (rightIndex - leftIndex === 1) {
-            const existsRight = checkIfExists(root, rightIndex);
-            if (existsRight) {
-                return rightIndex;
-            }
-        }
 
         if (exists) {
             leftIndex = middleIndex;
         } else {
             rightIndex = middleIndex;
         }
-
-        count++;
     }
 
     return middleIndex;
