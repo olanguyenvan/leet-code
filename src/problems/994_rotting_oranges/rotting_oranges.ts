@@ -25,57 +25,47 @@ export function orangesRotting(grid: number[][]): number {
         return neighbours;
     }
 
-    const initialFreshOrangesCell: Set<[number, number]> = new Set();
-    const rottenOranges: [number, number][] = new Array();
+    let orangesToRot = 0;
+    const rottenOrangesToTraverse: [number, number, number][] = new Array();
 
     for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
             const cell = grid[i][j];
 
             if (cell === FRESH_ORANGE_CELL) {
-                initialFreshOrangesCell.add([i, j]);
-            }
-
-            if (cell === ROTTEN_ORANGE_CELL) {
-                rottenOranges.push([i, j]);
+                orangesToRot++;
+            } else if (cell === ROTTEN_ORANGE_CELL) {
+                rottenOrangesToTraverse.push([i, j, 0]);
             }
         }
     }
 
-    const rottingTime: number[][] = Array.from(Array(height), () =>
-        new Array(width).fill(0)
-    );
+    let maximumRottingTime = 0;
 
-    while (rottenOranges.length !== 0) {
-        const rottenOrange = rottenOranges.shift()!;
+    while (rottenOrangesToTraverse.length !== 0) {
+        const rottenOrange = rottenOrangesToTraverse.shift()!;
 
-        const [i, j] = rottenOrange;
+        const [i, j, rottingTime] = rottenOrange;
+        maximumRottingTime = Math.max(maximumRottingTime, rottingTime);
 
         const neighbours = getNeighbours(i, j);
-        const nextRottingTime = rottingTime[i][j] + 1;
 
         for (const [neighbour_i, neighbour_j] of neighbours.values()) {
             if (grid[neighbour_i][neighbour_j] === FRESH_ORANGE_CELL) {
-                rottingTime[neighbour_i][neighbour_j] = nextRottingTime;
+                orangesToRot--;
                 grid[neighbour_i][neighbour_j] = ROTTEN_ORANGE_CELL;
-                rottenOranges.push([neighbour_i, neighbour_j]);
+                rottenOrangesToTraverse.push([
+                    neighbour_i,
+                    neighbour_j,
+                    rottingTime + 1,
+                ]);
             }
         }
     }
 
-    let maximumRotingTime = 0;
-
-    for (const [i, j] of initialFreshOrangesCell.values()) {
-        const cell = grid[i][j];
-
-        if (cell === FRESH_ORANGE_CELL) {
-            return -1;
-        }
-
-        if (cell === ROTTEN_ORANGE_CELL) {
-            maximumRotingTime = Math.max(maximumRotingTime, rottingTime[i][j]);
-        }
+    if (orangesToRot !== 0) {
+        return -1;
     }
 
-    return maximumRotingTime;
+    return maximumRottingTime;
 }
