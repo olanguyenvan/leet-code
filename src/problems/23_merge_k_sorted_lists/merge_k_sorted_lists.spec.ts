@@ -1,61 +1,13 @@
+import {
+    createLinkedList,
+    linkedListToArray,
+} from "../../test-utils/linked-list";
+
 const {
     insertToSortedList,
     mergeKLists,
     ListNode,
 } = require("./merge_k_sorted_lists");
-
-function createLinkedList(nums: number[]): typeof ListNode | null {
-    if (nums.length === 0) {
-        return null;
-    }
-
-    let head = null;
-
-    for (let i = nums.length - 1; i >= 0; i--) {
-        head = new ListNode(nums[i], head);
-    }
-
-    return head;
-}
-
-function linkedListToArray(list: typeof ListNode | null): number[] {
-    const result = [];
-
-    let tmp = list;
-    while (tmp) {
-        result.push(tmp.val);
-        tmp = tmp.next;
-    }
-
-    return result;
-}
-
-describe("createLinkedList", () => {
-    test("[] returns null", () => {
-        expect(createLinkedList([])).toBeNull();
-    });
-
-    test("[1]", () => {
-        const initial = [1];
-        const result = createLinkedList(initial);
-
-        expect(linkedListToArray(result)).toStrictEqual(initial);
-    });
-
-    test("[1, 2]", () => {
-        const initial = [1, 2];
-        const result = createLinkedList(initial);
-
-        expect(linkedListToArray(result)).toStrictEqual(initial);
-    });
-
-    test("[1, 2, 3]", () => {
-        const initial = [1, 2, 3];
-        const result = createLinkedList(initial);
-
-        expect(linkedListToArray(result)).toStrictEqual(initial);
-    });
-});
 
 describe("insertToSortedList", () => {
     test("insert to empty", () => {

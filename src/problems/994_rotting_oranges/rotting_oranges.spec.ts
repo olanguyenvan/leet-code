@@ -1,6 +1,6 @@
 const { getNeighbours, orangesRotting } = require("./rotting_oranges");
 
-describe.only("orangesRotting", () => {
+describe("orangesRotting", () => {
     it.each([
         [[[0]], 0],
         [

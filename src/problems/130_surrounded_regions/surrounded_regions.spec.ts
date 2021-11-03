@@ -41,7 +41,7 @@ describe("capture", () => {
     });
 });
 
-describe.only("solve", () => {
+describe("solve", () => {
     it.each([
         [[["X"]], [["X"]]],
         [
