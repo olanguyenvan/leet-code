@@ -29,7 +29,6 @@ export function partition(s: string): string[][] {
         }
     }
 
-    console.log(palindromesStartingAt);
     const results: string[][] = [];
 
     function generateResults(acc: string[], i: number): void {
